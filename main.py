@@ -25,11 +25,15 @@ def display_rooms():
 def book_room():
     """Allows a user to book an available room."""
     print("\n--- Book a Room ---")
-    try:
-        room_num = int(input("Enter the room number you want to book: "))
-    except ValueError:
-        print("Invalid input. Please enter a valid room number (e.g., 101).")
-        return
+    room_num = input("Enter the room number you want to book: ")
+    if room_num == "Cancel":
+        main_menu()
+    else:
+        try:
+            room_num = int(room_num)
+        except ValueError:
+            print("Invalid input. Please enter a valid room number (e.g., 101).")
+            return
 
     if room_num not in rooms:
         print(f"Room {room_num} does not exist.")
@@ -46,12 +50,16 @@ def book_room():
 def check_out():
     """Allows a user to clear a booking (check out)."""
     print("\n--- Check Out/Cancel Booking ---")
-    try:
-        room_num = int(input("Enter the room number to check out/cancel: "))
-    except ValueError:
-        print("Invalid input. Please enter a valid room number.")
+    room_num = input("Enter the room number you want to check out/cancel: ")
+    if room_num == "Cancel":
+        main_menu()
         return
-
+    else:
+        try:
+            room_num = int(room_num)
+        except ValueError:
+            print("Invalid input. Please enter a valid room number.")
+            return
     if room_num not in rooms:
         print(f"Room {room_num} does not exist.")
     elif rooms[room_num] == "Available":
@@ -73,7 +81,7 @@ def main_menu():
         print("4. Exit")
         print("----------------------------------")
 
-        choice = input("Enter your choice (1-4): ")
+        choice = input("Enter your choice (1-4): ") 
 
         if choice == '1':
             display_rooms()
